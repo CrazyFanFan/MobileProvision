@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
-  spec.name         = "MobileProvision"
-  spec.version      = "0.0.1"
+  spec.name         = "K3MobileProvision"
+  spec.version      = "0.0.1.1"
   spec.summary      = "A tool to decode *mobileprovision* plist file."
 
   spec.description  = <<-DESC
@@ -8,6 +8,7 @@ Pod::Spec.new do |spec|
     - It is part of resign tool.
                    DESC
 
+  spec.module_name  = "MobileProvision"
   spec.homepage     = "https://github.com/CrazyFanFan/MobileProvision"
   spec.license      = "GNU Affero General Public License v3.0"
   spec.author       = { "Crazy凡" => "827799383@qq.com" }
