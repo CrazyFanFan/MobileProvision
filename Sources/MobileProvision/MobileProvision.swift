@@ -74,7 +74,7 @@ extension MobileProvision {
         } else {
             var nsExtractedPlist: NSString?
             guard scanner.scanUpTo(plistEnd, into: &nsExtractedPlist),
-                  let _extractedPlist = nsExtractedPlist as String? else {
+                let _extractedPlist = nsExtractedPlist as String? else {
                 return nil
             }
 

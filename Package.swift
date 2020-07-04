@@ -8,13 +8,13 @@ let package = Package(
     platforms: [
         .macOS(SupportedPlatform.MacOSVersion.v10_10),
         .iOS(SupportedPlatform.IOSVersion.v9),
-        .tvOS(SupportedPlatform.TVOSVersion.v9),
+        .tvOS(SupportedPlatform.TVOSVersion.v9)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "MobileProvision",
-            targets: ["MobileProvision"]),
+            targets: ["MobileProvision"])
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -25,7 +25,7 @@ let package = Package(
         .testTarget(
             name: "MobileProvisionTests",
             dependencies: ["MobileProvision"],
-            resources: [.process("Test.mobileprovision")]),
+            resources: [.process("Test.mobileprovision")])
     ],
     swiftLanguageVersions: [.v5]
 )

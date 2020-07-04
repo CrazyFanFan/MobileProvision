@@ -25,6 +25,6 @@ final class MobileProvisionTests: XCTestCase {
 
     static var allTests = [
         ("testRead", testRead),
-        ("testReadWith", testReadWith),
+        ("testReadWith", testReadWith)
     ]
 }
