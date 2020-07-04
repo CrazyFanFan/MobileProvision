@@ -9,3 +9,5 @@ xcuserdata/
 
 # mobileprovision
 **/*.mobileprovision
+
+.ruby-version

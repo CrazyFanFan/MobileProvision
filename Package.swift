@@ -26,5 +26,6 @@ let package = Package(
             name: "MobileProvisionTests",
             dependencies: ["MobileProvision"],
             resources: [.process("Test.mobileprovision")]),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
