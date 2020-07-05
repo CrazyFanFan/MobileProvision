@@ -17,6 +17,8 @@ extension MobileProvision {
     // Sublevel: decode entitlements informations
     public struct Entitlements: Decodable {
 
+        public var applicationIdentifier: String?
+
         // MARK: - Topic: Authentication
 
         /// A Boolean value that indicates whether the app may, with user permission, provide user names and passwords for AutoFill in Safari and other apps.
@@ -355,6 +357,8 @@ extension MobileProvision {
         public var developerNetworkingMulticast: Bool?
 
         private enum CodingKeys: String, CodingKey {
+            case applicationIdentifier = "application-identifier"
+
             case developerAuthenticationServicesAutofillCredentialProvider = "com.apple.developer.authentication-services.autofill-credential-provider"
             case developerApplesignin = "com.apple.developer.applesignin"
 
