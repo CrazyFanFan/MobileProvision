@@ -17,7 +17,7 @@ public struct MobileProvision: Decodable {
     public var entitlements: Entitlements
     public var expirationDate: Date
     public var name: String
-    public var provisionedDevices: [String]
+    public var provisionedDevices: [String]?
     public var teamIdentifier: [String]
     public var teamName: String
     public var timeToLive: Int
