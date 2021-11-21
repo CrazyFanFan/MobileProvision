@@ -35,10 +35,25 @@ extension MobileProvision {
         /// A Boolean value that indicates whether a bundle represents an app clip.
         public var developerOnDemandInstallCapable: Bool?
 
+        // MARK: - Topic: CarPlay & There is no description of these keys.
+        public var developerCarplayAudio: Bool?
+        public var developerCarplayCharging: Bool?
+        public var developerCarplayCommunication: Bool?
+        public var developerCarplayMaps: Bool?
+        public var developerCarplayParking: Bool?
+        public var developerCarplayQuickOrdering: Bool?
+        public var developerCarplayMessaging: Bool?
+        public var developerCarplayContent: Bool?
+
         // MARK: - Topic: Contacts
 
         /// A Boolean value that indicates whether the app may access the notes stored in contacts.
         public var developerContactsNotes: Bool?
+
+        // MARK: - Topic: Core Location
+
+        /// Enables a location sharing app, with a user’s authorization, to query a user’s location in response to a location push from Apple Push Notification service (APNs).
+        public var developerLocationPush: Bool?
 
         // MARK: - Topic: Education
 
@@ -53,6 +68,21 @@ extension MobileProvision {
         /// A Boolean value that indicates whether the app may use exposure notification.
         public var developerExposureNotification: Bool?
 
+        // MARK: - Family Controls
+
+        /// A Boolean value that indicates whether the app can request or revoke authorization to provide parental controls.
+        public var developerFamilyControls: Bool?
+
+        // MARK: - File Provider
+
+        /// A Boolean value that indicates whether you can place domains in testing mode.
+        public var developerFileproviderTestingMode: Bool?
+
+        // MARK: - Group Activities
+
+        /// A Boolean value that indicates whether the app may implement shared group experiences.
+        public var developerGroupSession: Bool?
+
         // MARK: - Topic: Games
 
         /// A Boolean value that indicates whether users of the app may see and compare achievements on a leaderboard, invite friends, and start multiplayer games.
@@ -66,12 +96,21 @@ extension MobileProvision {
         /// Health data types that require additional permission.
         public var developerHealthkitAccess: Array<String>?
 
+        /// A Boolean value that indicates whether observer queries receive updates while running in the background.
+        public var  developerHealthkitBackgroundDelivery: Bool?
+
+        /// A Boolean value that determines whether your app can recalibrate the prediction algorithm used to calculate supported sample types.
+        public var  developerHealthkitRecalibrateEstimates: Bool?
+
         // MARK: - Topic: Home Automation
 
         /// A Boolean value that indicates whether users of the app may manage HomeKit-compatible accessories.
         public var developerHomekit: Bool?
 
         // MARK: - Topic: Hypervisor
+
+        /// A Boolean value that indicates whether the app creates and manages virtual machines.
+        public var securityHypervisor: Bool?
 
         /// A boolean that indicates whether the app creates and manages virtual machines.
         public var vmHypervisor: Bool?
@@ -81,6 +120,9 @@ extension MobileProvision {
 
         /// A boolean that indicates whether the app manages virtual network interfaces without escalating privileges to the root user.
         public var vmNetworking: Bool?
+
+        /// A Boolean that indicates whether the app can use the Virtualization framework.
+        public var securityVirtualization: Bool?
 
         // MARK: - Topic: iCloud
 
@@ -103,6 +145,14 @@ extension MobileProvision {
         /// The container identifier to use for iCloud key-value storage.
         public var developerUbiquityKvstoreIdentifier: String?
 
+        // MARK: - Topic: Media
+        /// A Boolean value that indicates whether the app may continue using the camera while running alongside another foreground app.
+        public var developerAvfoundationMultitaskingCameraAccess: Bool?
+
+        // MARK: - Topic: Memory
+        /// A Boolean value that indicates whether the app may continue using the camera while running alongside another foreground app.
+        public var developerKernelIncreasedMemoryLimit: Bool?
+
         // MARK: - Topic: Networking
 
         /// The APIs an app can use to customize networking features.
@@ -116,8 +166,13 @@ extension MobileProvision {
         /// https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_associated-domains
         public var developerAssociatedDomains: String?
 
-        /// DESC
+        /// A Boolean value that indicates whether an app can send or receive IP multicast traffic.
+        public var developerNetworkingMulticast: Bool?
+
         public var developerAssociatedDomainsApplinksReadWrite: Bool?
+
+        /// The entitlement developers need to use the ThreadNetwork API.
+        public var developerNetworkingManageThreadNetworkCredentials: Bool?
 
         // MARK: - Topic: Push Notifications
 
@@ -127,12 +182,15 @@ extension MobileProvision {
         /// The environment for push notifications in macOS apps.
         public var developerApsEnvironment: String?
 
-        // MARK: - Topic: Essentials
+        /// Enable receiving notifications without displaying the notification to the user.
+        public var developerUsernotificationsFiltering: Bool?
+
+        // MARK: - Topic: Security -> App Sandbox -> Essentials
 
         /// A Boolean value that indicates whether the app may use access control technology to contain damage to the system and user data if an app is compromised.
         public var securityAppSandbox: Bool?
 
-        // MARK: - Topic: Network
+        // MARK: - Topic: Security -> App Sandbox -> Network
 
         /// A Boolean value indicating whether your app may listen for incoming network connections.
         public var securityNetworkServer: Bool?
@@ -140,7 +198,7 @@ extension MobileProvision {
         /// A Boolean value indicating whether your app may open outgoing network connections.
         public var securityNetworkClient: Bool?
 
-        // MARK: - Topic: Hardware
+        // MARK: - Topic: Security -> App Sandbox -> Hardware
 
         /// A Boolean value that indicates whether the app may capture movies and still images using the built-in camera.
         public var securityDeviceCamera: Bool?
@@ -157,7 +215,7 @@ extension MobileProvision {
         /// A Boolean value indicating whether your app may interact with Bluetooth devices.
         public var securityDeviceBluetooth: Bool?
 
-        // MARK: - Topic: App Data
+        // MARK: - Topic: Security -> App Sandbox -> App Data
 
         /// A Boolean value that indicates whether the app may have read-write access to contacts in the user's address book.
         public var securityPersonalInformationAddressbook: Bool?
@@ -168,12 +226,12 @@ extension MobileProvision {
         /// A Boolean value that indicates whether the app may have read-write access to the user's calendar.
         public var securityPersonalInformationCalendars: Bool?
 
-        // MARK: - Topic: File Access
+        // MARK: - Topic: Security -> App Sandbox -> File Access
 
         /// A Boolean value that indicates whether the app may have read-write access to files the user has selected using an Open or Save dialog.
         public var securityFilesUserSelectedReadWrite: Bool?
 
-        /// A Boolean value that indicates whether the app may have read-only access to the Downloads folder.
+        /// A Boolean value that indicates whether the app may have read-only access to files the user has selected using an Open or Save dialog.
         public var securityFilesDownloadsReadOnly: Bool?
 
         /// A Boolean value that indicates whether the app may have read-write access to the Downloads folder.
@@ -200,7 +258,7 @@ extension MobileProvision {
         /// A Boolean value that indicates whether the app may have access to all files.
         public var securityFilesAll: Bool?
 
-        // MARK: - Topic: Runtime Exceptions
+        // MARK: - Topic: Security -> Hardened Runtime -> Runtime Exceptions
 
         /// A Boolean value that indicates whether the app may create writable and executable memory using the MAP_JIT flag.
         public var securityCsAllowJit: Bool?
@@ -220,7 +278,7 @@ extension MobileProvision {
         /// A Boolean value that indicates whether the app is a debugger and may attach to other processes or get task ports.
         public var securityCsDebugger: Bool?
 
-        // MARK: - Topic: Resource Access
+        // MARK: - Topic: Security -> Hardened Runtime -> Resource Access
 
         /// A Boolean value that indicates whether the app may record audio using the built-in microphone and access audio input using Core Audio.
         public var securityDeviceAudioInput: Bool?
@@ -260,12 +318,33 @@ extension MobileProvision {
         /// The level of data protection that encrypts sensitive user data when accessed on some devices.
         public var developerDevicecheckAppattestEnvironment: String?
 
+        /// A Boolean that indicates whether your app has access to smart card slots and smart cards.
+        public var securitySmartcard: Bool?
+
+        // MARK: - Topic: Sensors
+        public enum Sensors: String, Decodable {
+            case onWrist = "on-wrist"
+            case ambientLightSensor = "ambient-light-sensor"
+            case motionAccelerometer = "motion-accelerometer"
+            case motionRotationRate = "motion-rotation-rate"
+            case visits = "visits"
+            case pedometer = "pedometer"
+            case deviceUsage = "device-usage"
+            case messagesUsage = "messages-usage"
+            case phoneUsage = "phone-usage"
+            case keyboardMetrics = "keyboard-metrics"
+            case speechMetricsTelephony = "speech-metrics-telephony"
+            case speechMetricsSiri = "speech-metrics-siri"
+        }
+
+        public var developerSensorkitReaderAllow: [Sensors]?
+
         // MARK: - Topic: Siri
 
         /// A Boolean value that indicates whether the app handles Siri requests.
         public var developerSiri: Bool?
 
-        // MARK: - Topic: Essentials
+        // MARK: - Topic: System -> System Extensions -> Essentials
 
         /// A Boolean value that indicates whether your app has permission to activate or deactivate system extensions.
         public var developerSystemExtensionInstall: Bool?
@@ -273,18 +352,24 @@ extension MobileProvision {
         /// A Boolean value that indicates whether other development teams may distribute a system extension you create.
         public var developerSystemExtensionRedistributable: Bool?
 
-        // MARK: - Topic: Endpoint Security
+        // MARK: - Topic: System -> System Extensions -> Endpoint Security
 
         /// The entitlement required to monitor system events for potentially malicious activity.
         public var developerEndpointSecurityClient: Bool?
 
-        // MARK: - Topic: DriverKit Device Drivers
+        // MARK: - Topic: System -> DriverKit Device Drivers -> DriverKit Device Drivers
 
         /// A Boolean value that indicates whether your extension has permission to run as a user-space driver.
         public var developerDriverkit: Bool?
 
+        /// A Boolean value that indicates whether to match the driver against block storage devices that use custom drivers.
+        public var developerDriverkitFamilyBlockStorageDevice: Bool?
+
         /// A Boolean value indicating whether to match the driver against devices that communicate using networking protocols.
         public var developerDriverkitFamilyNetworking: Bool?
+
+        /// A Boolean value that indicates whether to match the driver against devices with SCSI controllers.
+        public var developerDriverkitFamilyScsicontroller: Bool?
 
         /// A Boolean value that indicates whether to match the driver against devices with serial communication interfaces.
         public var developerDriverkitFamilySerial: Bool?
@@ -298,7 +383,7 @@ extension MobileProvision {
         /// An array of strings that represent driver extensions which may communicate with other DriverKit services.
         public var developerDriverkitUserclientAccess: Array<String>?
 
-        // MARK: - Topic: Human Interface Device Drivers
+        // MARK: - Topic:  System -> System Extensions -> Human Interface Device Drivers
 
         /// A Boolean value that indicates whether the driver provides a HID-related service to the system.
         public var developerDriverkitFamilyHidDevice: Bool?
@@ -311,12 +396,14 @@ extension MobileProvision {
 
         /// A Boolean value that indicates whether the driver creates a virtual HID device.
         public var developerHidVirtualDevice: Bool?
-        // MARK: - Topic: System
 
         // MARK: - Topic: TV
 
         /// The entitlement for distinguishing between multiple user accounts on Apple TV.
         public var developerUserManagement: Array<String>?
+
+        public var developerVideoSubscriberSingleSignOn: Bool?
+        public var smootSubscriptionservice: Bool?
 
         // MARK: - Topic: Wallet
 
@@ -326,7 +413,7 @@ extension MobileProvision {
         /// A list of merchant IDs your app uses for Apple Pay support.
         public var developerInAppPayments: Array<String>?
 
-        // MARK: - Topic: NAME
+        // MARK: - Topic: Wireless Interfaces
 
         /// A Boolean value indicating whether your app can access information about the connected Wi-Fi network.
         public var developerNetworkingWifiInfo: Bool?
@@ -351,11 +438,6 @@ extension MobileProvision {
         /// A Boolean value that indicates whether the app may exchange audio with other Inter-App Audio-enabled apps.
         public var interAppAudio: Bool?
 
-        // MARK: - Topic: Network
-
-        /// A Boolean value indicating whether an app can send or receive IP multicast traffic.
-        public var developerNetworkingMulticast: Bool?
-
         private enum CodingKeys: String, CodingKey {
             case applicationIdentifier = "application-identifier"
 
@@ -365,23 +447,44 @@ extension MobileProvision {
             case developerParentApplicationIdentifiers = "com.apple.developer.parent-application-identifiers"
             case developerOnDemandInstallCapable = "com.apple.developer.on-demand-install-capable"
 
+            case developerCarplayAudio = "com.apple.developer.carplay-audio"
+            case developerCarplayCharging = "com.apple.developer.carplay-charging"
+            case developerCarplayCommunication = "com.apple.developer.carplay-communication"
+            case developerCarplayMaps = "com.apple.developer.carplay-maps"
+            case developerCarplayParking = "com.apple.developer.carplay-parking"
+            case developerCarplayQuickOrdering = "com.apple.developer.carplay-quick-ordering"
+            case developerCarplayMessaging = "com.apple.developer.carplay-messaging"
+            case developerCarplayContent = "com.apple.developer.playable-content"
+
             case developerContactsNotes = "com.apple.developer.contacts.notes"
+
+            case developerLocationPush = "com.apple.developer.location.push"
 
             case developerClasskitEnvironment = "com.apple.developer.ClassKit-environment"
             case developerAutomaticAssessmentConfiguration = "com.apple.developer.automatic-assessment-configuration"
 
             case developerExposureNotification = "com.apple.developer.exposure-notification"
 
+            case developerFamilyControls = "com.apple.developer.family-controls"
+
+            case developerFileproviderTestingMode = "com.apple.developer.fileprovider.testing-mode"
+
             case developerGameCenter = "com.apple.developer.game-center"
+
+            case developerGroupSession = "com.apple.developer.group-session"
 
             case developerHealthkit = "com.apple.developer.healthkit"
             case developerHealthkitAccess = "com.apple.developer.healthkit.access"
+            case developerHealthkitBackgroundDelivery = "com.apple.developer.healthkit.background-delivery"
+            case developerHealthkitRecalibrateEstimates = "com.apple.developer.healthkit.recalibrate-estimates"
 
             case developerHomekit = "com.apple.developer.homekit"
 
+            case securityHypervisor = "com.apple.security.hypervisor"
             case vmHypervisor = "com.apple.vm.hypervisor"
             case vmDeviceAccess = "com.apple.vm.device-access"
             case vmNetworking = "com.apple.vm.networking"
+            case securityVirtualization = "com.apple.security.virtualization"
 
             case developerIcloudContainerDevelopmentContainerIdentifiers = "com.apple.developer.icloud-container-development-container-identifiers"
             case developerIcloudContainerEnvironment = "com.apple.developer.icloud-container-environment"
@@ -389,13 +492,20 @@ extension MobileProvision {
             case developerIcloudServices = "com.apple.developer.icloud-services"
             case developerUbiquityKvstoreIdentifier = "com.apple.developer.ubiquity-kvstore-identifier"
 
+            case developerAvfoundationMultitaskingCameraAccess = "com.apple.developer.avfoundation.multitasking-camera-access"
+            case developerKernelIncreasedMemoryLimit = "com.apple.developer.kernel.increased-memory-limit"
+
             case developerNetworkingNetworkextension = "com.apple.developer.networking.networkextension"
             case developerNetworkingVpnApi = "com.apple.developer.networking.vpn.api"
             case developerAssociatedDomains = "com.apple.developer.associated-domains"
+
+            case developerNetworkingMulticast = "com.apple.developer.networking.multicast"
             case developerAssociatedDomainsApplinksReadWrite = "com.apple.developer.associated-domains.applinks.read-write"
+            case developerNetworkingManageThreadNetworkCredentials = "com.apple.developer.networking.manage-thread-network-credentials"
 
             case apsEnvironment = "aps-environment"
             case developerApsEnvironment = "com.apple.developer.aps-environment"
+            case developerUsernotificationsFiltering = "com.apple.developer.usernotifications.filtering"
 
             case securityAppSandbox = "com.apple.security.app-sandbox"
 
@@ -444,6 +554,9 @@ extension MobileProvision {
             case keychainAccessGroups = "keychain-access-groups"
             case developerDefaultDataProtection = "com.apple.developer.default-data-protection"
             case developerDevicecheckAppattestEnvironment = "com.apple.developer.devicecheck.appattest-environment"
+            case securitySmartcard = "com.apple.security.smartcard"
+
+            case developerSensorkitReaderAllow = "com.apple.developer.sensorkit.reader.allow"
 
             case developerSiri = "com.apple.developer.siri"
 
@@ -453,7 +566,9 @@ extension MobileProvision {
             case developerEndpointSecurityClient = "com.apple.developer.endpoint-security.client"
 
             case developerDriverkit = "com.apple.developer.driverkit"
+            case developerDriverkitFamilyBlockStorageDevice = "com.apple.developer.driverkit.family.block-storage-device"
             case developerDriverkitFamilyNetworking = "com.apple.developer.driverkit.family.networking"
+            case developerDriverkitFamilyScsicontroller = "com.apple.developer.driverkit.family.scsicontroller"
             case developerDriverkitFamilySerial = "com.apple.developer.driverkit.family.serial"
             case developerDriverkitTransportPci = "com.apple.developer.driverkit.transport.pci"
             case developerDriverkitTransportUsb = "com.apple.developer.driverkit.transport.usb"
@@ -465,6 +580,8 @@ extension MobileProvision {
             case developerHidVirtualDevice = "com.apple.developer.hid.virtual.device"
 
             case developerUserManagement = "com.apple.developer.user-management"
+            case developerVideoSubscriberSingleSignOn = "com.apple.developer.video-subscriber-single-sign-on"
+            case smootSubscriptionservice = "com.apple.smoot.subscriptionservice"
 
             case developerPassTypeIdentifiers = "com.apple.developer.pass-type-identifiers"
             case developerInAppPayments = "com.apple.developer.in-app-payments"
@@ -477,8 +594,6 @@ extension MobileProvision {
 
             case developerMaps = "com.apple.developer.maps"
             case interAppAudio = "inter-app-audio"
-
-            case developerNetworkingMulticast = "com.apple.developer.networking.multicast"
         }
     }
 }
