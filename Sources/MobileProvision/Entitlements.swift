@@ -7,16 +7,15 @@
 
 import Foundation
 
-extension MobileProvision {
-    public enum Environment: String, Decodable {
+public extension MobileProvision {
+    enum Environment: String, Decodable {
         case development
         case production
         case disabled
     }
 
     // Sublevel: decode entitlements informations
-    public struct Entitlements: Decodable {
-
+    struct Entitlements: Decodable {
         public var applicationIdentifier: String?
 
         // MARK: - Topic: Authentication
@@ -25,17 +24,18 @@ extension MobileProvision {
         public var developerAuthenticationServicesAutofillCredentialProvider: Bool?
 
         /// An entitlement that lets your app use Sign in with Apple.
-        public var developerApplesignin: Array<String>?
+        public var developerApplesignin: [String]?
 
         // MARK: - Topic: App Clips
 
         /// A list of parent application identifiers for an app clip with exactly one entry.
-        public var developerParentApplicationIdentifiers: Array<String>?
+        public var developerParentApplicationIdentifiers: [String]?
 
         /// A Boolean value that indicates whether a bundle represents an app clip.
         public var developerOnDemandInstallCapable: Bool?
 
         // MARK: - Topic: CarPlay & There is no description of these keys.
+
         public var developerCarplayAudio: Bool?
         public var developerCarplayCharging: Bool?
         public var developerCarplayCommunication: Bool?
@@ -94,13 +94,13 @@ extension MobileProvision {
         public var developerHealthkit: Bool?
 
         /// Health data types that require additional permission.
-        public var developerHealthkitAccess: Array<String>?
+        public var developerHealthkitAccess: [String]?
 
         /// A Boolean value that indicates whether observer queries receive updates while running in the background.
-        public var  developerHealthkitBackgroundDelivery: Bool?
+        public var developerHealthkitBackgroundDelivery: Bool?
 
         /// A Boolean value that determines whether your app can recalibrate the prediction algorithm used to calculate supported sample types.
-        public var  developerHealthkitRecalibrateEstimates: Bool?
+        public var developerHealthkitRecalibrateEstimates: Bool?
 
         // MARK: - Topic: Home Automation
 
@@ -127,15 +127,15 @@ extension MobileProvision {
         // MARK: - Topic: iCloud
 
         /// The container identifiers for the iCloud development environment.
-        public var developerIcloudContainerDevelopmentContainerIdentifiers: Array<String>?
+        public var developerIcloudContainerDevelopmentContainerIdentifiers: [String]?
 
         /// The development or production environment to use for the iCloud containers.
         /// Note. Apple's documentation says that the type of value is `String`, which is actually an `Array of strings`.
         /// https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_icloud-container-environment
-        public var developerIcloudContainerEnvironment: Array<String>?
+        public var developerIcloudContainerEnvironment: [String]?
 
         /// The container identifiers for the iCloud production environment.
-        public var developerIcloudContainerIdentifiers: Array<String>?
+        public var developerIcloudContainerIdentifiers: [String]?
 
         /// The iCloud services used by the app.
         /// Note. Apple's documentation: `Array of strings`,Test result: `String`.
@@ -146,20 +146,22 @@ extension MobileProvision {
         public var developerUbiquityKvstoreIdentifier: String?
 
         // MARK: - Topic: Media
+
         /// A Boolean value that indicates whether the app may continue using the camera while running alongside another foreground app.
         public var developerAvfoundationMultitaskingCameraAccess: Bool?
 
         // MARK: - Topic: Memory
+
         /// A Boolean value that indicates whether the app may continue using the camera while running alongside another foreground app.
         public var developerKernelIncreasedMemoryLimit: Bool?
 
         // MARK: - Topic: Networking
 
         /// The APIs an app can use to customize networking features.
-        public var developerNetworkingNetworkextension: Array<String>?
+        public var developerNetworkingNetworkextension: [String]?
 
         /// The API an app can use to create and control a custom system VPN configuration.
-        public var developerNetworkingVpnApi: Array<String>?
+        public var developerNetworkingVpnApi: [String]?
 
         /// The associated domains for specific services, such as shared web credentials and universal links.
         /// Note. Apple's document: `Array of strings`; Test result: `String`
@@ -304,13 +306,14 @@ extension MobileProvision {
 
         /// A Boolean value that indicates whether the app may prompt the user for permission to send Apple events to other apps.
         public var securityAutomationAppleEvents: Bool?
+
         // MARK: - Topic: Security
 
         /// A list of identifiers specifying the groups your app belongs to.
-        public var securityApplicationGroups: Array<String>?
+        public var securityApplicationGroups: [String]?
 
         /// The identifiers for the keychain groups that the app may share items with.
-        public var keychainAccessGroups: Array<String>?
+        public var keychainAccessGroups: [String]?
 
         /// The level of data protection that encrypts sensitive user data when accessed on some devices.
         public var developerDefaultDataProtection: String?
@@ -322,13 +325,14 @@ extension MobileProvision {
         public var securitySmartcard: Bool?
 
         // MARK: - Topic: Sensors
+
         public enum Sensors: String, Decodable {
             case onWrist = "on-wrist"
             case ambientLightSensor = "ambient-light-sensor"
             case motionAccelerometer = "motion-accelerometer"
             case motionRotationRate = "motion-rotation-rate"
-            case visits = "visits"
-            case pedometer = "pedometer"
+            case visits
+            case pedometer
             case deviceUsage = "device-usage"
             case messagesUsage = "messages-usage"
             case phoneUsage = "phone-usage"
@@ -375,13 +379,13 @@ extension MobileProvision {
         public var developerDriverkitFamilySerial: Bool?
 
         /// An array of PCI device descriptors that your custom driver supports.
-        public var developerDriverkitTransportPci: Array<Dictionary<String, String>>?
+        public var developerDriverkitTransportPci: [[String: String]]?
 
         /// An array of dictionaries that identify the USB devices the driver supports.
-        public var developerDriverkitTransportUsb: Array<Dictionary<String, String>>?
+        public var developerDriverkitTransportUsb: [[String: String]]?
 
         /// An array of strings that represent driver extensions which may communicate with other DriverKit services.
-        public var developerDriverkitUserclientAccess: Array<String>?
+        public var developerDriverkitUserclientAccess: [String]?
 
         // MARK: - Topic:  System -> System Extensions -> Human Interface Device Drivers
 
@@ -400,7 +404,7 @@ extension MobileProvision {
         // MARK: - Topic: TV
 
         /// The entitlement for distinguishing between multiple user accounts on Apple TV.
-        public var developerUserManagement: Array<String>?
+        public var developerUserManagement: [String]?
 
         public var developerVideoSubscriberSingleSignOn: Bool?
         public var smootSubscriptionservice: Bool?
@@ -408,10 +412,10 @@ extension MobileProvision {
         // MARK: - Topic: Wallet
 
         /// A list of identifiers that specify pass types that your app can access in Wallet.
-        public var developerPassTypeIdentifiers: Array<String>?
+        public var developerPassTypeIdentifiers: [String]?
 
         /// A list of merchant IDs your app uses for Apple Pay support.
-        public var developerInAppPayments: Array<String>?
+        public var developerInAppPayments: [String]?
 
         // MARK: - Topic: Wireless Interfaces
 
@@ -428,7 +432,7 @@ extension MobileProvision {
         public var developerNetworkingHotspotconfiguration: Bool?
 
         /// The Near Field Communication data formats an app can read.
-        public var developerNfcReadersessionFormats: Array<String>?
+        public var developerNfcReadersessionFormats: [String]?
 
         // MARK: - Topic: Deprecated Entitlements
 

@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "K3MobileProvision"
-  spec.version      = "0.0.1.1"
+  spec.version      = "0.0.2"
   spec.summary      = "A tool to decode *mobileprovision* plist file."
 
   spec.description  = <<-DESC
@@ -19,5 +19,5 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => "https://github.com/CrazyFanFan/MobileProvision.git", :tag => "#{spec.version}" }
   spec.source_files = "Sources/**/*.swift"
   spec.requires_arc = true
-  spec.swift_versions = "5.1"
+  spec.swift_versions = "5.4.2"
 end

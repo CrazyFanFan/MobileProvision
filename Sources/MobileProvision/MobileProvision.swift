@@ -43,15 +43,15 @@ public struct MobileProvision: Decodable {
     }
 }
 
-extension MobileProvision {
+public extension MobileProvision {
     /// Read mobileprovision file in app.
-    public static func read() -> MobileProvision? {
+    static func read() -> MobileProvision? {
         guard let path = Bundle.main.path(forResource: "embedded", ofType: "mobileprovision") else { return nil }
         return read(from: path)
     }
 
     /// Read a .mobileprovision file with path.
-    public static func read(from path: String) -> MobileProvision? {
+    static func read(from path: String) -> MobileProvision? {
         guard let string = try? NSString(contentsOfFile: path, encoding: String.Encoding.isoLatin1.rawValue) else {
             return nil
         }
