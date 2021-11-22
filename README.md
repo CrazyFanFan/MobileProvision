@@ -2,33 +2,35 @@
 
 A tool to decode *mobileprovision* plist file;
 
-# Environment
+## Environment
 
 - Mini Xcode Version: Xcode 12.0 - beta
 
-# Test
+## Test
 
-You should set your **Test.mobileprovision** before run test case. 
+You should set your **Test.mobileprovision** before run test case.
 
-# Usage
+## Usage
 
-## cocoapods
+### cocoapods
 
-`pod 'MobileProvision', 'VERSION'
+`pod 'K3MobileProvision', 'VERSION'`
 
-## SPM
+### SPM
 
 add `.package(name: "MobileProvision", url: "https://github.com/CrazyFanFan/MobileProvision.git", from: "Version")` to your **Packge.swift.`dependencies`**.
 
 1. To get mobileprovision data as embedded in your app:
-```
+
+```swift
 import MobileProvision
 
 MobileProvision.read()
 ```
-2. To get mobile provision data from a file on disk:
 
-```
+1. To get mobile provision data from a file on disk:
+
+```swift
 import MobileProvision
 
 MobileProvision.read(from: "path_for_my.mobileprovision")
