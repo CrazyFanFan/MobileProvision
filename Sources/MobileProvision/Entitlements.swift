@@ -155,6 +155,9 @@ public extension MobileProvision {
         /// A Boolean value that indicates whether the app may continue using the camera while running alongside another foreground app.
         public var developerKernelIncreasedMemoryLimit: Bool?
 
+        /// A Boolean value that indicates whether the app may access an extended address space.
+        public var comAppleDeveloperKernelExtendedVirtualAddressing: Bool?
+
         // MARK: - Topic: Networking
 
         /// The APIs an app can use to customize networking features.
@@ -327,26 +330,61 @@ public extension MobileProvision {
         // MARK: - Topic: Sensors
 
         public enum Sensors: String, Decodable {
+            /// A sensor that describes the watch’s position on the wrist.
             case onWrist = "on-wrist"
+
+            /// A sensor that provides ambient light information.
             case ambientLightSensor = "ambient-light-sensor"
+
+            /// A sensor that provides acceleration motion data.
             case motionAccelerometer = "motion-accelerometer"
+
+            /// A sensor that provides rotation motion data.
             case motionRotationRate = "motion-rotation-rate"
+
+            /// A sensor that provides information about the user’s frequently visited locations.
             case visits
+
+            /// A sensor that provides information about the user’s steps.
             case pedometer
+
+            /// A sensor that provides information about the user’s device usage.
             case deviceUsage = "device-usage"
+
+            /// A sensor that provides information about the user’s Messages app usage.
             case messagesUsage = "messages-usage"
+
+            /// A sensor that reports the amount of time that the user is on phone calls.
             case phoneUsage = "phone-usage"
+
+            /// A sensor that provides information about the user’s keyboard usage.
             case keyboardMetrics = "keyboard-metrics"
+
+            /// A sensor that provides data describing a user’s speech during phone calls.
             case speechMetricsTelephony = "speech-metrics-telephony"
+
+            /// A sensor that provides data describing a user’s speech to Siri.
             case speechMetricsSiri = "speech-metrics-siri"
+
+            /// A sensor that describes the pressure and temperature of the user's environment.
+            case ambientPressure = "ambient-pressure"
         }
 
+        /// The necessary entitlement to access sensor data that’s required by your app’s preapproved research study.
         public var developerSensorkitReaderAllow: [Sensors]?
 
         // MARK: - Topic: Siri
 
         /// A Boolean value that indicates whether the app handles Siri requests.
         public var developerSiri: Bool?
+
+        // MARK: - StoreKit
+
+        /// A Boolean value that indicates whether your app can offer external purchases.
+        public var comAppleDeveloperStorekitExternalPurchase: Bool?
+
+        /// A Boolean value that indicates whether your app can include a link that directs users to a website to make an external purchase.
+        public var comAppleDeveloperStorekitExternalPurchaseLink: Bool?
 
         // MARK: - Topic: System -> System Extensions -> Essentials
 
@@ -400,6 +438,12 @@ public extension MobileProvision {
 
         /// A Boolean value that indicates whether the driver creates a virtual HID device.
         public var developerHidVirtualDevice: Bool?
+
+        /// A Boolean that indicates whether the app can act as a user’s default mail client.
+        public var comAppleDeveloperMailClient: Bool?
+
+        /// A Boolean that indicates whether the app can act as the user’s default web browser.
+        public var comAppleDeveloperWebBrowser: Bool?
 
         // MARK: - Topic: TV
 
@@ -498,6 +542,7 @@ public extension MobileProvision {
 
             case developerAvfoundationMultitaskingCameraAccess = "com.apple.developer.avfoundation.multitasking-camera-access"
             case developerKernelIncreasedMemoryLimit = "com.apple.developer.kernel.increased-memory-limit"
+            case comAppleDeveloperKernelExtendedVirtualAddressing = "com.apple.developer.kernel.extended-virtual-addressing"
 
             case developerNetworkingNetworkextension = "com.apple.developer.networking.networkextension"
             case developerNetworkingVpnApi = "com.apple.developer.networking.vpn.api"
@@ -564,6 +609,9 @@ public extension MobileProvision {
 
             case developerSiri = "com.apple.developer.siri"
 
+            case comAppleDeveloperStorekitExternalPurchase = "com.apple.developer.storekit.external-purchase"
+            case comAppleDeveloperStorekitExternalPurchaseLink = "com.apple.developer.storekit.external-purchase-link"
+
             case developerSystemExtensionInstall = "com.apple.developer.system-extension.install"
             case developerSystemExtensionRedistributable = "com.apple.developer.system-extension.redistributable"
 
@@ -582,6 +630,9 @@ public extension MobileProvision {
             case developerDriverkitFamilyHidEventservice = "com.apple.developer.driverkit.family.hid.eventservice"
             case developerDriverkitTransportHid = "com.apple.developer.driverkit.transport.hid"
             case developerHidVirtualDevice = "com.apple.developer.hid.virtual.device"
+
+            case comAppleDeveloperMailClient = "com.apple.developer.mail-client"
+            case comAppleDeveloperWebBrowser = "com.apple.developer.web-browser"
 
             case developerUserManagement = "com.apple.developer.user-management"
             case developerVideoSubscriberSingleSignOn = "com.apple.developer.video-subscriber-single-sign-on"
