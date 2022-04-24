@@ -11,3 +11,5 @@ xcuserdata/
 **/*.mobileprovision
 
 .ruby-version
+
+.gems
