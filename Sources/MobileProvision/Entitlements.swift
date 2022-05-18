@@ -380,6 +380,9 @@ public extension MobileProvision {
 
         // MARK: - StoreKit
 
+        /// A Boolean value that indicates whether your app can link to an external website for account creation or management.
+        public var comAppleDeveloperStorekitExternalLinkAccount: Bool?
+
         /// A Boolean value that indicates whether your app can offer external purchases.
         public var comAppleDeveloperStorekitExternalPurchase: Bool?
 
@@ -609,6 +612,7 @@ public extension MobileProvision {
 
             case developerSiri = "com.apple.developer.siri"
 
+            case comAppleDeveloperStorekitExternalLinkAccount = "com.apple.developer.storekit.external-link.account"
             case comAppleDeveloperStorekitExternalPurchase = "com.apple.developer.storekit.external-purchase"
             case comAppleDeveloperStorekitExternalPurchaseLink = "com.apple.developer.storekit.external-purchase-link"
 
