@@ -547,6 +547,9 @@ public extension MobileProvision {
         /// A Boolean value that indicates whether the app may exchange audio with other Inter-App Audio-enabled apps.
         public var interAppAudio: Bool?
 
+        // MARK: - Topic: DriverKit Device Drivers
+        public var developerDriverkitFamilyAudio: Bool?
+
         private enum CodingKeys: String, CodingKey {
             case applicationIdentifier = "application-identifier"
 
@@ -723,6 +726,8 @@ public extension MobileProvision {
 
             case developerMaps = "com.apple.developer.maps"
             case interAppAudio = "inter-app-audio"
+
+            case developerDriverkitFamilyAudio = "com.apple.developer.driverkit.family.audio"
         }
     }
 }
