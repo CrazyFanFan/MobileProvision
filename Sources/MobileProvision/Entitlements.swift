@@ -119,6 +119,8 @@ public extension MobileProvision {
         /// A Boolean value that indicates whether users of the app may manage HomeKit-compatible accessories.
         public var developerHomekit: Bool?
 
+        public var developerMatterAllowSetupPayload: Bool?
+
         // MARK: - Topic: Hypervisor
 
         /// A Boolean value that indicates whether the app creates and manages virtual machines.
@@ -522,6 +524,10 @@ public extension MobileProvision {
 
         public var developerInAppIdentityPresentmentMerchantIdentifiers: [String]?
 
+        // WeatherKit
+        /// A Boolean value that indicates whether the app may use WeatherKit.
+        public var developerWeatherkit: Bool?
+
         // MARK: - Topic: Wireless Interfaces
 
         /// A Boolean value indicating whether your app can access information about the connected Wi-Fi network.
@@ -592,6 +598,7 @@ public extension MobileProvision {
             case developerHealthkitRecalibrateEstimates = "com.apple.developer.healthkit.recalibrate-estimates"
 
             case developerHomekit = "com.apple.developer.homekit"
+            case developerMatterAllowSetupPayload = "com.apple.developer.matter.allow-setup-payload"
 
             case securityHypervisor = "com.apple.security.hypervisor"
             case vmHypervisor = "com.apple.vm.hypervisor"
@@ -717,6 +724,8 @@ public extension MobileProvision {
             case developerInAppPayments = "com.apple.developer.in-app-payments"
             case developerInAppIdentityPresentment = "com.apple.developer.in-app-identity-presentment"
             case developerInAppIdentityPresentmentMerchantIdentifiers = "com.apple.developer.in-app-identity-presentment.merchant-identifiers"
+
+            case developerWeatherkit = "com.apple.developer.weatherkit"
 
             case developerNetworkingWifiInfo = "com.apple.developer.networking.wifi-info"
             case externalAccessoryWirelessConfiguration = "com.apple.external-accessory.wireless-configuration"
