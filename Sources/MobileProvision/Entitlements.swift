@@ -7,6 +7,15 @@
 
 import Foundation
 
+/*
+ All the information from the address below: https://developer.apple.com/documentation/bundleresources/entitlements
+ */
+
+public extension MobileProvision.Entitlements.InAppIdentityPresentment.Key {
+    static let documentTypes = "document-types"
+    static let elements = "elements"
+}
+
 public extension MobileProvision {
     enum Environment: String, Decodable {
         case development
@@ -30,6 +39,9 @@ public extension MobileProvision {
 
         /// A list of parent application identifiers for an app clip with exactly one entry.
         public var developerParentApplicationIdentifiers: [String]?
+
+        /// A list of App Clip identifiers for an app with exactly one entry.
+        public var developerAssociatedAppclipAppIdentifiers: [String]?
 
         /// A Boolean value that indicates whether a bundle represents an app clip.
         public var developerOnDemandInstallCapable: Bool?
@@ -107,6 +119,8 @@ public extension MobileProvision {
         /// A Boolean value that indicates whether users of the app may manage HomeKit-compatible accessories.
         public var developerHomekit: Bool?
 
+        public var developerMatterAllowSetupPayload: Bool?
+
         // MARK: - Topic: Hypervisor
 
         /// A Boolean value that indicates whether the app creates and manages virtual machines.
@@ -146,6 +160,9 @@ public extension MobileProvision {
         public var developerUbiquityKvstoreIdentifier: String?
 
         // MARK: - Topic: Media
+
+        /// An entitlement for an app extension that adds a specific third-party media receiver to a system device-picker UI.
+        public var developerMediaDeviceDiscoveryExtension: Bool?
 
         /// A Boolean value that indicates whether the app may continue using the camera while running alongside another foreground app.
         public var developerAvfoundationMultitaskingCameraAccess: Bool?
@@ -189,6 +206,15 @@ public extension MobileProvision {
 
         /// Enable receiving notifications without displaying the notification to the user.
         public var developerUsernotificationsFiltering: Bool?
+
+        // MARK: - Topic: Privact
+
+        /// The entitlement for accessing the user-assigned device name instead of a generic device name.
+        public var developerDeviceInformationUserAssignedDeviceName: Bool?
+
+        // MARK: - Topic: Push to tale
+
+        public var developerPushToTalk: Bool?
 
         // MARK: - Topic: Security -> App Sandbox -> Essentials
 
@@ -425,8 +451,19 @@ public extension MobileProvision {
         /// An array of dictionaries that identify the USB devices the driver supports.
         public var developerDriverkitTransportUsb: [[String: String]]?
 
+        // MARK: - Topic: System -> DriverKit Device Drivers -> DriverKit Device Drivers -> User client entitlements
+
         /// An array of strings that represent driver extensions which may communicate with other DriverKit services.
         public var developerDriverkitUserclientAccess: [String]?
+
+        /// A Boolean value that determines whether a macOS driver accepts user client connections from any application.
+        public var developerDriverkitAllowAnyUserclientAccess: Bool?
+
+        /// A Boolean value that indicates whether an iPadOS app can communicate with drivers.
+        public var developerDriverkitCommunicatesWithDrivers: Bool?
+
+        /// A Boolean value that indicates whether an iPadOS driver accepts calls from third-party user clients.
+        public var developerDriverkitAllowThirdPartyUserclients: Bool?
 
         // MARK: - Topic:  System -> System Extensions -> Human Interface Device Drivers
 
@@ -464,6 +501,33 @@ public extension MobileProvision {
         /// A list of merchant IDs your app uses for Apple Pay support.
         public var developerInAppPayments: [String]?
 
+        public enum InAppIdentityPresentment {
+            public typealias Key = String
+
+            public enum Value: String, Codable {
+                case usDriversLicense = "us-drivers-license"
+
+                case givenName = "given-name"
+                case familyName = "family-name"
+                case portrait = "portrait"
+                case address = "address"
+                case issuingAuthority = "issuing-authority"
+                case documentExpirationDate = "document-expiration-date"
+                case documentNumber = "document-number"
+                case drivingPrivileges = "driving-privileges"
+                case age = "age"
+                case dateOfBirth = "date-of-birth"
+            }
+        }
+
+        public var developerInAppIdentityPresentment: [InAppIdentityPresentment.Key: [InAppIdentityPresentment.Value]]?
+
+        public var developerInAppIdentityPresentmentMerchantIdentifiers: [String]?
+
+        // WeatherKit
+        /// A Boolean value that indicates whether the app may use WeatherKit.
+        public var developerWeatherkit: Bool?
+
         // MARK: - Topic: Wireless Interfaces
 
         /// A Boolean value indicating whether your app can access information about the connected Wi-Fi network.
@@ -489,6 +553,9 @@ public extension MobileProvision {
         /// A Boolean value that indicates whether the app may exchange audio with other Inter-App Audio-enabled apps.
         public var interAppAudio: Bool?
 
+        // MARK: - Topic: DriverKit Device Drivers
+        public var developerDriverkitFamilyAudio: Bool?
+
         private enum CodingKeys: String, CodingKey {
             case applicationIdentifier = "application-identifier"
 
@@ -496,6 +563,7 @@ public extension MobileProvision {
             case developerApplesignin = "com.apple.developer.applesignin"
 
             case developerParentApplicationIdentifiers = "com.apple.developer.parent-application-identifiers"
+            case developerAssociatedAppclipAppIdentifiers = "com.apple.developer.associated-appclip-app-identifiers"
             case developerOnDemandInstallCapable = "com.apple.developer.on-demand-install-capable"
 
             case developerCarplayAudio = "com.apple.developer.carplay-audio"
@@ -530,6 +598,7 @@ public extension MobileProvision {
             case developerHealthkitRecalibrateEstimates = "com.apple.developer.healthkit.recalibrate-estimates"
 
             case developerHomekit = "com.apple.developer.homekit"
+            case developerMatterAllowSetupPayload = "com.apple.developer.matter.allow-setup-payload"
 
             case securityHypervisor = "com.apple.security.hypervisor"
             case vmHypervisor = "com.apple.vm.hypervisor"
@@ -543,6 +612,7 @@ public extension MobileProvision {
             case developerIcloudServices = "com.apple.developer.icloud-services"
             case developerUbiquityKvstoreIdentifier = "com.apple.developer.ubiquity-kvstore-identifier"
 
+            case developerMediaDeviceDiscoveryExtension = "com.apple.developer.media-device-discovery-extension"
             case developerAvfoundationMultitaskingCameraAccess = "com.apple.developer.avfoundation.multitasking-camera-access"
             case developerKernelIncreasedMemoryLimit = "com.apple.developer.kernel.increased-memory-limit"
             case comAppleDeveloperKernelExtendedVirtualAddressing = "com.apple.developer.kernel.extended-virtual-addressing"
@@ -558,6 +628,10 @@ public extension MobileProvision {
             case apsEnvironment = "aps-environment"
             case developerApsEnvironment = "com.apple.developer.aps-environment"
             case developerUsernotificationsFiltering = "com.apple.developer.usernotifications.filtering"
+
+            case developerDeviceInformationUserAssignedDeviceName = "com.apple.developer.device-information.user-assigned-device-name"
+
+            case developerPushToTalk = "com.apple.developer.push-to-talk"
 
             case securityAppSandbox = "com.apple.security.app-sandbox"
 
@@ -628,7 +702,11 @@ public extension MobileProvision {
             case developerDriverkitFamilySerial = "com.apple.developer.driverkit.family.serial"
             case developerDriverkitTransportPci = "com.apple.developer.driverkit.transport.pci"
             case developerDriverkitTransportUsb = "com.apple.developer.driverkit.transport.usb"
+
             case developerDriverkitUserclientAccess = "com.apple.developer.driverkit.userclient-access"
+            case developerDriverkitAllowAnyUserclientAccess = "com.apple.developer.driverkit.allow-any-userclient-access"
+            case developerDriverkitCommunicatesWithDrivers = "com.apple.developer.driverkit.communicates-with-drivers"
+            case developerDriverkitAllowThirdPartyUserclients = "com.apple.developer.driverkit.allow-third-party-userclients"
 
             case developerDriverkitFamilyHidDevice = "com.apple.developer.driverkit.family.hid.device"
             case developerDriverkitFamilyHidEventservice = "com.apple.developer.driverkit.family.hid.eventservice"
@@ -644,6 +722,10 @@ public extension MobileProvision {
 
             case developerPassTypeIdentifiers = "com.apple.developer.pass-type-identifiers"
             case developerInAppPayments = "com.apple.developer.in-app-payments"
+            case developerInAppIdentityPresentment = "com.apple.developer.in-app-identity-presentment"
+            case developerInAppIdentityPresentmentMerchantIdentifiers = "com.apple.developer.in-app-identity-presentment.merchant-identifiers"
+
+            case developerWeatherkit = "com.apple.developer.weatherkit"
 
             case developerNetworkingWifiInfo = "com.apple.developer.networking.wifi-info"
             case externalAccessoryWirelessConfiguration = "com.apple.external-accessory.wireless-configuration"
@@ -653,6 +735,8 @@ public extension MobileProvision {
 
             case developerMaps = "com.apple.developer.maps"
             case interAppAudio = "inter-app-audio"
+
+            case developerDriverkitFamilyAudio = "com.apple.developer.driverkit.family.audio"
         }
     }
 }
