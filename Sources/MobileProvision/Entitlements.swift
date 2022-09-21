@@ -17,14 +17,14 @@ public extension MobileProvision.Entitlements.InAppIdentityPresentment.Key {
 }
 
 public extension MobileProvision {
-    enum Environment: String, Decodable {
+    enum Environment: String, Decodable, Hashable {
         case development
         case production
         case disabled
     }
 
     // Sublevel: decode entitlements informations
-    struct Entitlements: Decodable {
+    struct Entitlements: Decodable, Hashable {
         public var applicationIdentifier: String?
 
         // MARK: - Topic: Authentication
@@ -199,7 +199,7 @@ public extension MobileProvision {
         // MARK: - Topic: Push Notifications
 
         /// The environment for push notifications.
-        public var apsEnvironment: Environment
+        public var apsEnvironment: Environment?
 
         /// The environment for push notifications in macOS apps.
         public var developerApsEnvironment: String?
@@ -355,7 +355,7 @@ public extension MobileProvision {
 
         // MARK: - Topic: Sensors
 
-        public enum Sensors: String, Decodable {
+        public enum Sensors: String, Decodable, Hashable {
             /// A sensor that describes the watch’s position on the wrist.
             case onWrist = "on-wrist"
 
@@ -504,7 +504,7 @@ public extension MobileProvision {
         public enum InAppIdentityPresentment {
             public typealias Key = String
 
-            public enum Value: String, Codable {
+            public enum Value: String, Codable, Hashable {
                 case usDriversLicense = "us-drivers-license"
 
                 case givenName = "given-name"

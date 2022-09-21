@@ -7,22 +7,24 @@
 
 import Foundation
 
-public struct MobileProvision: Decodable {
-    public var appIDName: String
-    public var applicationIdentifierPrefix: [String]
-    public var creationDate: Date
-    public var platform: [String]
-    public var isXcodeManaged: Bool? = false
-    public var developerCertificates: [Data]
-    public var entitlements: Entitlements
-    public var expirationDate: Date
-    public var name: String
-    public var provisionedDevices: [String]?
-    public var teamIdentifier: [String]
-    public var teamName: String
-    public var timeToLive: Int
-    public var uuid: String
-    public var version: Int
+public struct MobileProvision: Decodable, Hashable {
+    public private(set) var appIDName: String
+    public private(set) var applicationIdentifierPrefix: [String]
+    public private(set) var creationDate: Date
+    public private(set) var platform: [String]
+    public private(set) var isXcodeManaged: Bool? = false
+    public private(set) var developerCertificates: [Data]
+    public private(set) var entitlements: Entitlements
+    public private(set) var expirationDate: Date
+    public private(set) var name: String
+    public private(set) var provisionedDevices: [String]?
+    public private(set) var teamIdentifier: [String]
+    public private(set) var teamName: String
+    public private(set) var timeToLive: Int
+    public private(set) var uuid: String
+    public private(set) var version: Int
+
+    public private(set) var path: URL!
 
     private enum CodingKeys: String, CodingKey {
         case appIDName = "AppIDName"
@@ -40,6 +42,11 @@ public struct MobileProvision: Decodable {
         case timeToLive = "TimeToLive"
         case uuid = "UUID"
         case version = "Version"
+    }
+
+    public init?(with fileURL: URL) {
+        guard let value = Self.read(from: fileURL.path) else { return nil }
+        self = value
     }
 }
 
@@ -86,7 +93,10 @@ public extension MobileProvision {
         let decoder = PropertyListDecoder()
 
         do {
-            return try decoder.decode(MobileProvision.self, from: plist)
+            var provision = try decoder.decode(MobileProvision.self, from: plist)
+            provision.path = URL(fileURLWithPath: path)
+
+            return provision
         } catch {
             print(error)
             return nil
