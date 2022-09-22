@@ -348,7 +348,9 @@ public extension MobileProvision {
         public var developerDefaultDataProtection: String?
 
         /// The level of data protection that encrypts sensitive user data when accessed on some devices.
-        public var developerDevicecheckAppattestEnvironment: String?
+        /// Note. Apple's documentation: `Array of strings`,Test result: `String`.
+        /// https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_devicecheck_appattest-environment
+        public var developerDevicecheckAppattestEnvironment: [String]?
 
         /// A Boolean that indicates whether your app has access to smart card slots and smart cards.
         public var securitySmartcard: Bool?
