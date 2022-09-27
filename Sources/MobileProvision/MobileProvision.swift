@@ -7,17 +7,17 @@
 
 import Foundation
 
-public struct MobileProvision: Decodable, Hashable {
+public struct MobileProvision: Hashable {
     public private(set) var appIDName: String
     public private(set) var applicationIdentifierPrefix: [String]
     public private(set) var creationDate: Date
-    public private(set) var platform: [String]
-    public private(set) var isXcodeManaged: Bool? = false
     public private(set) var developerCertificates: [Data]
-    public private(set) var entitlements: Entitlements
     public private(set) var expirationDate: Date
+    public private(set) var isXcodeManaged: Bool? = false
     public private(set) var name: String
+    public private(set) var platform: [String]
     public private(set) var provisionedDevices: [String]?
+    public private(set) var rawEntitlements: [String: AnyHashable]
     public private(set) var teamIdentifier: [String]
     public private(set) var teamName: String
     public private(set) var timeToLive: Int
@@ -25,28 +25,79 @@ public struct MobileProvision: Decodable, Hashable {
     public private(set) var version: Int
 
     public private(set) var path: URL!
+    public private(set) var entitlements: [EntitlementType: AnyHashable]
 
-    private enum CodingKeys: String, CodingKey {
-        case appIDName = "AppIDName"
-        case applicationIdentifierPrefix = "ApplicationIdentifierPrefix"
-        case creationDate = "CreationDate"
-        case platform = "Platform"
-        case isXcodeManaged = "IsXcodeManaged"
-        case developerCertificates = "DeveloperCertificates"
-        case entitlements = "Entitlements"
-        case expirationDate = "ExpirationDate"
-        case name = "Name"
-        case provisionedDevices = "ProvisionedDevices"
-        case teamIdentifier = "TeamIdentifier"
-        case teamName = "TeamName"
-        case timeToLive = "TimeToLive"
-        case uuid = "UUID"
-        case version = "Version"
-    }
+    public private(set) var applicationIdentifier: String?
 
     public init?(with fileURL: URL) {
-        guard let value = Self.read(from: fileURL.path) else { return nil }
-        self = value
+        var decoder: CMSDecoder?
+        var dataRef: CFData?
+
+        CMSDecoderCreate(&decoder)
+
+        guard let tmpDecoder = decoder, let data = try? Data(contentsOf: fileURL) else { return nil }
+
+        let plist: Any? = data.withUnsafeBytes { (bufferRawBufferPointer) -> Any? in
+
+            let bufferPointer: UnsafePointer<UInt8> = bufferRawBufferPointer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+            let rawPtr = UnsafeRawPointer(bufferPointer)
+            // USE THE rawPtr
+
+            CMSDecoderUpdateMessage(tmpDecoder, rawPtr, data.count)
+            CMSDecoderFinalizeMessage(tmpDecoder)
+            CMSDecoderCopyContent(tmpDecoder, &dataRef)
+            if let dataRef = dataRef,
+               let plist = try? PropertyListSerialization.propertyList(
+                from: dataRef as Data,
+                options: [.mutableContainers],
+                format: nil
+               ) {
+                return plist
+            }
+
+            return nil
+        }
+
+        guard let plist = plist as? [String: AnyHashable] else { return nil }
+
+        func value<T>(for key: String, default: T) -> T {
+            if let tmp = plist[key] as? T {
+                return tmp
+            }
+
+            assert(key == "ProvisionedDevices" || false, "Cannot read key: \(key)")
+            return `default`
+        }
+
+        self.appIDName = value(for: "AppIDName", default: .init())
+        self.applicationIdentifierPrefix = value(for: "ApplicationIdentifierPrefix", default: .init())
+        self.creationDate = value(for: "CreationDate", default: .init())
+        self.developerCertificates = value(for: "DeveloperCertificates", default: .init())
+        self.expirationDate = value(for: "ExpirationDate", default: .init())
+        self.isXcodeManaged = value(for: "isXcodeManaged", default: false)
+        self.name = value(for: "Name", default: "")
+        self.platform = value(for: "Platform", default: .init())
+        self.provisionedDevices = value(for: "ProvisionedDevices", default: .init())
+        self.rawEntitlements = (plist["Entitlements"] as? [String: AnyHashable]) ?? [:]
+        self.teamIdentifier = value(for: "TeamIdentifier", default: .init())
+        self.teamName = value(for: "TeamName", default: "")
+        self.teamName = value(for: "TeamName", default: .init())
+        self.timeToLive =  value(for: "TimeToLive", default: .init())
+        self.uuid = value(for: "UUID", default: "")
+        self.version = value(for: "Version", default: .init())
+
+        self.path = fileURL
+
+        self.entitlements = rawEntitlements.reduce(into: [EntitlementType: AnyHashable](), { partialResult, pair in
+            if let key = EntitlementType(rawValue: pair.0) {
+                partialResult[key] = pair.1
+            }
+        })
+
+        self.applicationIdentifier = entitlements[.applicationIdentifier] as? String
+
+        decoder = nil
+        dataRef = nil
     }
 }
 
@@ -54,52 +105,11 @@ public extension MobileProvision {
     /// Read mobileprovision file in app.
     static func read() -> MobileProvision? {
         guard let path = Bundle.main.path(forResource: "embedded", ofType: "mobileprovision") else { return nil }
-        return read(from: path)
+        return .init(with: URL(fileURLWithPath: path))
     }
 
     /// Read a .mobileprovision file with path.
     static func read(from path: String) -> MobileProvision? {
-        guard let string = try? NSString(contentsOfFile: path, encoding: String.Encoding.isoLatin1.rawValue) else {
-            return nil
-        }
-
-        let plistStart = "<?xml"
-        let plistEnd = "</plist>"
-
-        let scanner = Scanner(string: string as String)
-        if #available(OSX 10.15, iOS 13.0, tvOS 13.0, *) {
-            guard scanner.scanUpToString(plistStart) != nil else { return nil }
-        } else {
-            guard scanner.scanUpTo(plistStart, into: nil) else { return nil }
-        }
-
-        let extractedPlist: String
-
-        if #available(OSX 10.15, iOS 13.0, tvOS 13.0, *) {
-            guard let _extractedPlist = scanner.scanUpToString(plistEnd) else { return nil }
-            extractedPlist = _extractedPlist
-        } else {
-            var nsExtractedPlist: NSString?
-            guard scanner.scanUpTo(plistEnd, into: &nsExtractedPlist),
-                let _extractedPlist = nsExtractedPlist as String? else {
-                return nil
-            }
-
-            extractedPlist = _extractedPlist
-        }
-
-        guard let plist = extractedPlist.appending(plistEnd).data(using: .isoLatin1) else { return nil }
-
-        let decoder = PropertyListDecoder()
-
-        do {
-            var provision = try decoder.decode(MobileProvision.self, from: plist)
-            provision.path = URL(fileURLWithPath: path)
-
-            return provision
-        } catch {
-            print(error)
-            return nil
-        }
+        .init(with: URL(fileURLWithPath: path))
     }
 }
