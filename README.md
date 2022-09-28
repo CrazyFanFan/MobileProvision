@@ -28,7 +28,7 @@ import MobileProvision
 MobileProvision.read()
 ```
 
-1. To get mobile provision data from a file on disk:
+2. To get mobile provision data from a file on disk:
 
 ```swift
 import MobileProvision

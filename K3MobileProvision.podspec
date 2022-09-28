@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "K3MobileProvision"
-  spec.version      = "0.0.5"
+  spec.version      = "1.0.0-rc"
   spec.summary      = "A tool to decode *mobileprovision* plist file."
 
   spec.description  = <<-DESC
